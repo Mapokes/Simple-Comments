@@ -1,0 +1,710 @@
+:root {
+  /* font weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  /* colors */
+  --clr-moderate-blue: hsl(238, 40%, 52%);
+  --clr-soft-red: hsl(358, 79%, 66%);
+  --clr-light-grayish-blue: hsl(239, 57%, 85%);
+  --clr-pale-red: hsl(357, 100%, 86%);
+  --clr-dark-blue: hsl(212, 24%, 26%);
+  --clr-grayish-blue: hsl(211, 10%, 45%);
+  --clr-light-gray: hsl(223, 19%, 93%);
+  --clr-very-light-gray: hsl(228, 33%, 97%);
+  --clr-white: hsl(0, 0%, 100%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  padding-top: 4rem;
+  background-color: var(--clr-very-light-gray);
+  position: relative;
+}
+
+main {
+  max-width: 575px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==================================================================== */
+/*                          NAV BAR                                     */
+/* ==================================================================== */
+
+.nav-bar {
+  position: fixed;
+  z-index: 1000;
+  display: grid;
+  grid-template-areas: ". alias-nav-content .";
+  grid-template-columns: 1fr minmax(200px, 800px) 1fr;
+  width: 100%;
+  top: 0;
+  left: 0;
+  padding: 0.5rem 0;
+  background-color: var(--clr-grayish-blue);
+}
+
+.nav-content {
+  grid-area: alias-nav-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+.nav-bar h1 {
+  color: var(--clr-dark-blue);
+}
+
+#logout-btn {
+  color: var(--clr-light-gray);
+}
+
+/* ==================================================================== */
+/*                          COMMENT BOX                                 */
+/* ==================================================================== */
+
+.comment-box {
+  display: grid;
+  grid-template-areas:
+    "alias-comment-header alias-comment-header"
+    "alias-comment-text alias-comment-text"
+    "alias-endorsement-buttons alias-reply-btn";
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 5px;
+  background-color: var(--clr-white);
+}
+
+.comment-box p {
+  line-height: 1.3rem;
+}
+
+.replying-to {
+  font-weight: var(--font-weight-medium);
+  color: var(--clr-moderate-blue);
+}
+
+.comment-box.reply {
+  margin-left: 1rem;
+  position: relative;
+}
+
+.comment-box.reply::after {
+  position: absolute;
+  content: "";
+  left: -1rem;
+  top: 0;
+  width: 3px;
+  height: calc(100% + 1rem);
+  border-left: 3px solid var(--clr-light-gray);
+}
+
+.user-comment-container .comment-box:last-child::after {
+  height: 100% !important;
+}
+
+/* ====================== */
+/* ENDORSMENT BUTTONS     */
+/* ====================== */
+
+.endorsement-buttons {
+  grid-area: alias-endorsement-buttons;
+  display: flex;
+  align-items: center;
+  width: max-content;
+  border-radius: 10px;
+  background-color: var(--clr-very-light-gray);
+}
+
+.button-endorsement {
+  display: flex;
+  border: none;
+  background: none;
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
+.comment-score {
+  font-weight: var(--font-weight-medium);
+  color: var(--clr-moderate-blue);
+}
+
+/* ====================== */
+/* COMMENT HEADER         */
+/* ====================== */
+
+.comment-header {
+  grid-area: alias-comment-header;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-avatar {
+  width: 2rem;
+  aspect-ratio: 1;
+}
+
+.user-avatar img {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+.username {
+  font-weight: var(--font-weight-medium);
+  color: var(--clr-dark-blue);
+}
+
+.comment-date {
+  font-weight: var(--font-weight-regular);
+  color: var(--clr-grayish-blue);
+}
+
+/* ====================== */
+/* REPLY BUTTON           */
+/* ====================== */
+
+.reply-btn {
+  grid-area: alias-reply-btn;
+  align-self: center;
+  justify-self: end;
+  display: flex;
+  width: max-content;
+  height: max-content;
+  align-items: center;
+  gap: 1rem;
+  border: none;
+  background: none;
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--clr-moderate-blue);
+}
+
+/* ====================== */
+/* COMMENT BOX PARAGRAPH  */
+/* ====================== */
+
+.comment-text {
+  grid-area: alias-comment-text;
+  word-break: break-all;
+  color: var(--clr-grayish-blue);
+}
+
+/* ==================================================================== */
+/*                      COMMENT BOX LOGGED USER                         */
+/* ==================================================================== */
+
+.logged-user-submited {
+  grid-template-areas:
+    "alias-comment-header alias-comment-header"
+    "alias-comment-text alias-comment-text"
+    "alias-endorsement-buttons alias-user-options-buttons";
+}
+
+.logged-user-submited #comment-editing-textarea,
+.logged-user-submited .update-btn {
+  display: none;
+}
+
+/* ====================== */
+/* TAG                    */
+/* ====================== */
+
+.you-tag {
+  padding: 0.1rem 0.4rem;
+  margin-left: -0.5rem;
+  border-radius: 5px;
+  background-color: var(--clr-moderate-blue);
+  color: var(--clr-white);
+}
+
+/* ====================== */
+/* USER OPTION BUTTONS    */
+/* ====================== */
+
+.user-options-buttons {
+  grid-area: alias-user-options-buttons;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.delete-btn,
+.edit-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  background: none;
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.delete-btn {
+  color: var(--clr-soft-red);
+}
+
+.edit-btn {
+  margin-left: 1rem;
+  color: var(--clr-moderate-blue);
+}
+
+/* ========================= */
+/* LOGGED USER EDIT TEXTAREA */
+/* ========================= */
+
+.logged-user-submited.editing {
+  grid-template-areas:
+    "alias-comment-header alias-comment-header"
+    "alias-comment-editing-textarea alias-comment-editing-textarea"
+    ". alias-update-btn"
+    "alias-endorsement-buttons alias-user-options-buttons";
+}
+
+.logged-user-submited.editing .comment-text {
+  display: none;
+}
+
+.logged-user-submited.editing #comment-editing-textarea,
+.logged-user-submited.editing .update-btn {
+  display: block;
+}
+
+#comment-editing-textarea {
+  grid-area: alias-comment-editing-textarea;
+  resize: none;
+  border: 2px solid var(--clr-light-gray);
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  caret-color: var(--clr-moderate-blue);
+  color: var(--clr-dark-blue);
+}
+
+#comment-editing-textarea:focus {
+  outline: none;
+  border: 2px solid var(--clr-moderate-blue);
+}
+
+/* ====================== */
+/* UPDATE BUTTON          */
+/* ====================== */
+
+.update-btn {
+  grid-area: alias-update-btn;
+  justify-self: end;
+  width: max-content;
+  border: none;
+  padding: 0.8rem 1.8rem;
+  border-radius: 10px;
+  font-weight: var(--font-weight-medium);
+  font-size: 1rem;
+  background-color: var(--clr-moderate-blue);
+  color: var(--clr-white);
+}
+
+/* ==================================================================== */
+/*                         NEW COMMENT BOX                              */
+/* ==================================================================== */
+
+.comment-box.new {
+  grid-template-areas:
+    "alias-user-submit-textarea alias-user-submit-textarea"
+    "alias-logged-user-avatar alias-send-submit-btn";
+  align-items: center;
+  position: relative;
+}
+
+/* ====================== */
+/* ERROR DISPLAY          */
+/* ====================== */
+
+.error {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 2rem;
+  color: var(--clr-soft-red);
+}
+
+/* ======================= */
+/* NEW COMMENT BOX CONTENT */
+/* ======================= */
+
+.logged-user-avatar {
+  grid-area: alias-logged-user-avatar;
+}
+
+.user-submit-textarea {
+  grid-area: alias-user-submit-textarea;
+  resize: none;
+  border: 2px solid var(--clr-light-gray);
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  caret-color: var(--clr-moderate-blue);
+  color: var(--clr-dark-blue);
+}
+
+.user-submit-textarea:focus {
+  outline: none;
+  border: 2px solid var(--clr-moderate-blue);
+}
+
+.send-submit-btn {
+  grid-area: alias-send-submit-btn;
+  justify-self: end;
+  width: max-content;
+  padding: 0.8rem 1.8rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+  background-color: var(--clr-moderate-blue);
+  color: var(--clr-white);
+}
+
+/* ==================================================================== */
+/*                          CONFIRMATION BOX                            */
+/* ==================================================================== */
+
+.comfimation-popup {
+  display: none;
+  top: 20%;
+  position: fixed;
+  z-index: 100;
+  grid-template-areas:
+    "alias-popup-title alias-popup-title"
+    "alias-popup-text alias-popup-text"
+    "alias-delete-btn alias-confirm-btn";
+  gap: 1rem;
+  max-width: 400px;
+  padding: 1.5rem 2rem;
+  border-radius: 10px;
+  background-color: var(--clr-white);
+}
+
+.comfimation-popup.active {
+  display: grid;
+}
+
+.comfimation-popup h2 {
+  grid-area: alias-popup-title;
+  color: var(--clr-dark-blue);
+}
+
+.comfimation-popup p {
+  grid-area: alias-popup-text;
+  line-height: 1.5rem;
+  color: var(--clr-grayish-blue);
+}
+
+#decline-btn {
+  grid-area: alias-delete-btn;
+  background-color: var(--clr-grayish-blue);
+}
+
+#confirm-btn {
+  grid-area: alias-confirm-btn;
+  background-color: var(--clr-soft-red);
+}
+
+.confirmation-btn {
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: var(--font-weight-medium);
+  color: var(--clr-white);
+  font-size: 1rem;
+}
+
+/* ====================== */
+/* BACKGROUND OVERLAY     */
+/* ====================== */
+
+.bg-overlay {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--clr-light-gray);
+  opacity: 0.5;
+  filter: brightness(0.1);
+}
+
+.bg-overlay.active {
+  display: block;
+}
+
+/* ==================================================================== */
+/*                       LOGIN/SING UP PAGE                             */
+/* ==================================================================== */
+
+/* ====================== */
+/* SHARED STYLES          */
+/* ====================== */
+
+.login-page,
+.signup-page {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  max-width: 400px;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: var(--clr-grayish-blue);
+}
+
+.username-area *,
+.password-area *,
+#login-btn,
+#sign-up-btn {
+  font-size: 1rem;
+}
+
+.login-header,
+.signup-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0 2rem;
+}
+
+.login-header h1,
+.signup-header h1 {
+  display: flex;
+  color: var(--clr-dark-blue);
+}
+
+.login-header span,
+.signup-header span {
+  align-self: flex-end;
+  font-size: 0.8rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--clr-light-grayish-blue);
+}
+
+.username-area,
+.password-area {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  color: var(--clr-white);
+  position: relative;
+}
+
+.username-area label,
+.password-area label {
+  flex-basis: 25%;
+}
+
+#username-input,
+#user-password-input {
+  flex-basis: 65%;
+  width: 100%;
+}
+
+/* ====================== */
+/* LOGIN                  */
+/* ====================== */
+
+.login-page #login-btn {
+  align-self: center;
+  border: none;
+  border-radius: 10px;
+  padding: 1rem;
+  background-color: var(--clr-dark-blue);
+  color: var(--clr-white);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 2px;
+}
+
+.login-page #sign-up-btn {
+  align-self: flex-end;
+  color: var(--clr-dark-blue);
+}
+
+.login-error {
+  bottom: -1rem;
+  right: 0;
+  position: absolute;
+  color: var(--clr-pale-red);
+  font-size: 0.8rem;
+}
+
+/* ====================== */
+/* SIGN UP                */
+/* ====================== */
+
+#select-avatar-btn {
+  font-size: 0.8rem;
+}
+
+.signup-page #sign-up-btn {
+  align-self: center;
+  border: none;
+  border-radius: 10px;
+  padding: 1rem;
+  background-color: var(--clr-dark-blue);
+  color: var(--clr-white);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 2px;
+}
+
+.signup-page #login-btn {
+  align-self: flex-end;
+  color: var(--clr-dark-blue);
+}
+
+.avatar-box {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  position: relative;
+}
+
+#select-avatar-btn {
+  padding: 0.1rem;
+}
+
+#file-name {
+  font-size: 0.8rem;
+}
+
+.signup-error {
+  position: absolute;
+
+  color: var(--clr-pale-red);
+  font-size: 0.8rem;
+}
+
+.empty-username-error,
+.empty-password-error {
+  bottom: -1rem;
+  right: 0;
+}
+
+.empty-avatar-error {
+  left: 6rem;
+}
+
+/* ==================================================================== */
+/*                          HOVER STATES                                */
+/* ==================================================================== */
+
+.button-endorsement:hover,
+.reply-btn:hover,
+.delete-btn:hover,
+.edit-btn:hover,
+.send-submit-btn:hover,
+#logout-btn:hover,
+#login-btn:hover,
+#sign-up-btn:hover,
+#select-avatar-btn:hover,
+.confirmation-btn:hover {
+  cursor: pointer;
+}
+
+.button-endorsement:hover {
+  transition: transform ease 100ms;
+  transform: scale(1.2);
+  filter: invert(100%) saturate(2000%) hue-rotate(600deg);
+}
+
+.reply-btn:hover,
+.edit-btn:hover,
+.delete-btn:hover,
+#logout-btn:hover,
+#login-btn:hover,
+#sign-up-btn:hover,
+.confirmation-btn:hover {
+  opacity: 0.7;
+}
+
+.send-submit-btn:hover {
+  background-color: var(--clr-light-grayish-blue);
+}
+
+/* ==================================================================== */
+/*                          MEDIA QUERIES                               */
+/* ==================================================================== */
+
+@media (min-width: 640px) {
+  main {
+    max-width: 700px;
+  }
+
+  .comment-box {
+    grid-template-areas:
+      "alias-endorsement-buttons alias-comment-header alias-reply-btn"
+      "alias-endorsement-buttons alias-comment-text alias-comment-text";
+    grid-template-columns: max-content 1fr max-content;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .endorsement-buttons {
+    flex-direction: column;
+    height: max-content;
+    padding-bottom: 3px;
+  }
+
+  .comment-box.reply {
+    margin-left: 5.5rem;
+  }
+
+  .comment-box.reply::after {
+    left: -2.75rem;
+  }
+
+  .logged-user-submited {
+    grid-template-areas:
+      "alias-endorsement-buttons alias-comment-header alias-user-options-buttons"
+      "alias-endorsement-buttons alias-comment-text alias-comment-text";
+  }
+
+  .logged-user-submited.editing {
+    grid-template-areas:
+      "alias-endorsement-buttons alias-comment-header alias-user-options-buttons"
+      "alias-endorsement-buttons alias-comment-editing-textarea alias-comment-editing-textarea"
+      "alias-endorsement-buttons . alias-update-btn";
+  }
+
+  .comment-box.new {
+    grid-template-areas: "alias-logged-user-avatar alias-user-submit-textarea alias-send-submit-btn";
+    grid-template-columns: max-content 1fr max-content;
+    align-items: flex-start;
+  }
+
+  .error {
+    top: auto;
+    bottom: 0;
+    right: 10rem;
+  }
+}

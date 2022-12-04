@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="./code/images/favicon-32x32.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./code/style.css" />
+
+    <title>Simple comments</title>
+  </head>
+  <body>
+    <div class="signup-page">
+      <header class="signup-header">
+        <h1>
+          simple <br />
+          comments <span>SIGN UP</span>
+        </h1>
+      </header>
+      <div class="username-area">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username-input" placeholder="enter username" />
+        <span class="empty-username-error signup-error" style="display: none">cannot be empty</span>
+      </div>
+      <div class="password-area">
+        <label for="user-password">Password</label>
+        <input type="password" name="user-password" id="user-password-input" placeholder="enter password" />
+        <span class="empty-password-error signup-error" style="display: none">cannot be empty</span>
+      </div>
+      <div class="avatar-box">
+        <input type="file" name="user-avatar" id="user-avatar-input" accept=".png, .jpg, .jpeg, .webp" style="display: none" />
+        <input type="button" name="select-avatar-btn" id="select-avatar-btn" value="Select avatar..." onclick="document.getElementById('user-avatar-input').click();" />
+        <p id="file-name"></p>
+        <div class="user-avatar"></div>
+        <span class="empty-avatar-error signup-error" style="display: none">Please select avatar</span>
+      </div>
+      <button id="sign-up-btn">SIGN UP</button>
+      <a id="login-btn" href="./login.html">login</a>
+    </div>
+    <script src="./code/sign.js"></script>
+  </body>
+</html>
