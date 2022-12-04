@@ -38,8 +38,8 @@ Users are able to:
 
 ### Links
 
-- Live Site URL: [netlify]()
-- Live Site URL: [gh-pages]()
+- Live Site URL: [netlify](https://elegant-gnome-c27300.netlify.app/)
+- Live Site URL: [gh-pages](https://mapokes.github.io/Simple-Comments/)
 
 ## My process
 
